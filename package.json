@@ -13,9 +13,12 @@
     "@emotion/styled": "^11.11.5",
     "@mui/icons-material": "^5.15.16",
     "@mui/material": "^5.15.16",
+    "@supabase/supabase-js": "^2.81.1",
+    "canvas-confetti": "^1.9.4",
     "framer-motion": "^11.0.0",
     "next": "^14.0.0",
     "react": "^18.2.0",
+    "react-canvas-confetti": "^2.0.7",
     "react-dom": "^18.2.0"
   },
   "devDependencies": {

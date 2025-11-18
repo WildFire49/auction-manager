@@ -10,7 +10,13 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { useBids } from '../src/state/BidsContext.jsx';
 
 export default function BidList({ onEdit }) {
-  const { bids, deleteBid } = useBids();
+  const { bids, deleteBid, refreshBids } = useBids();
+
+  const handleDelete = async (id) => {
+    await deleteBid(id);
+    // Immediately refresh the list
+    await refreshBids();
+  };
 
   return (
     <div className="bid-list-scroll">
@@ -41,7 +47,7 @@ export default function BidList({ onEdit }) {
                 </Tooltip>
               )}
               <Tooltip title="Remove from list">
-                <IconButton size="small" onClick={() => deleteBid(bid.id)} color="error">
+                <IconButton size="small" onClick={() => handleDelete(bid.id)} color="error">
                   <DeleteOutlineRoundedIcon fontSize="small" />
                 </IconButton>
               </Tooltip>

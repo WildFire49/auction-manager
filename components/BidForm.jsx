@@ -9,7 +9,7 @@ import CurrencyRupeeRoundedIcon from '@mui/icons-material/CurrencyRupeeRounded';
 import { useBids } from '../src/state/BidsContext.jsx';
 
 export default function BidForm({ editingBid, onCancelEdit }) {
-  const { upsertBid } = useBids();
+  const { upsertBid, refreshBids } = useBids();
   const [name, setName] = useState('');
   const [amount, setAmount] = useState('');
 
@@ -23,13 +23,15 @@ export default function BidForm({ editingBid, onCancelEdit }) {
     }
   }, [editingBid]);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    upsertBid({ 
+    await upsertBid({ 
       id: editingBid?.id,
       name, 
       amount: parseFloat(amount || '0') 
     });
+    // Immediately refresh the list
+    await refreshBids();
     setAmount('');
     setName('');
     if (onCancelEdit) onCancelEdit();
