@@ -18,6 +18,21 @@ export default function BidList({ onEdit }) {
     await refreshBids();
   };
 
+  const formatTimestamp = (timestamp) => {
+    if (!timestamp) return 'Just now';
+    try {
+      const date = new Date(timestamp);
+      if (isNaN(date.getTime())) return 'Just now';
+      return date.toLocaleTimeString('en-IN', { 
+        hour: '2-digit', 
+        minute: '2-digit',
+        hour12: true 
+      });
+    } catch (error) {
+      return 'Just now';
+    }
+  };
+
   return (
     <div className="bid-list-scroll">
       <AnimatePresence initial={false}>
@@ -34,7 +49,7 @@ export default function BidList({ onEdit }) {
             <div>
               <Typography className="bid-name">{bid.name}</Typography>
               <Typography variant="caption" color="text.secondary">
-                Updated {new Date(bid.updatedAt || bid.createdAt).toLocaleTimeString()}
+                Updated {formatTimestamp(bid.updated_at || bid.created_at)}
               </Typography>
             </div>
             <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
